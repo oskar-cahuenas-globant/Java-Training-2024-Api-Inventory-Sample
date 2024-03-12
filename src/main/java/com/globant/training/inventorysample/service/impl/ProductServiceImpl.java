@@ -1,6 +1,8 @@
 package com.globant.training.inventorysample.service.impl;
 
 import com.globant.training.inventorysample.domain.dto.ProductDto;
+import com.globant.training.inventorysample.domain.entity.Product;
+import com.globant.training.inventorysample.exceptions.withstatuscode.ProductNotExistException;
 import com.globant.training.inventorysample.mapper.ProductDtoToProductEntityConverter;
 import com.globant.training.inventorysample.mapper.ProductEntityToProductDtoConverter;
 import com.globant.training.inventorysample.repository.ProductRepository;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Product service implementation.
@@ -38,15 +41,16 @@ public class ProductServiceImpl implements IProductService {
   @Override
   public ProductDto findProductBySku(String sku) {
     LOGGER.info("Begin method findProductBySku sku={}", sku);
-    return productRepository
-        .findBySku(sku)
-        .stream()
-        .map(productEntityToProductDtoConverter::convert)
-        //  by new we will throw an exception with a generic message
-        // it will throw a 500 error
-        // in a future iteration we will handle exceptions properly
-        .findFirst()
-        .orElseThrow(() -> new RuntimeException(String.format("Product with SKU=%s not found", sku)));
+    Optional<Product> product = productRepository.findBySku(sku);
+
+    // In this example if product not found
+    // an exception with @ResponseStatus
+    // and then an error with standard Spring boot error object will be thrown
+    if (product.isEmpty()) {
+      // exception anotated with NOT_FOUND response code
+      throw new ProductNotExistException(String.format("Product with SKU=%s not found", sku));
+    }
+    return productEntityToProductDtoConverter.convert(product.get());
   }
 
   @Override
