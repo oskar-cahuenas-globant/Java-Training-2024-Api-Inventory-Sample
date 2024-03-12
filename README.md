@@ -104,3 +104,9 @@ Classes in package `com.globant.training.inventorysample.domain.dto` are example
 
 - Interface `com.globant.training.inventorysample.repository.ProductRepository` Defines a JPA repository for Product
   Entity with query or "magic methods" for lookup by entity field name.
+
+# Database initial Seeding
+Example of initial seeding with a CommandLineRunner for populating tables
+- Class `com.globant.training.inventorysample.runner.ProductSeeder` for populating `Products` table.
+
+
