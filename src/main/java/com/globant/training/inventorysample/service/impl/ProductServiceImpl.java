@@ -1,6 +1,7 @@
 package com.globant.training.inventorysample.service.impl;
 
 import com.globant.training.inventorysample.domain.dto.ProductDto;
+import com.globant.training.inventorysample.mapper.ProductDtoToProductEntityConverter;
 import com.globant.training.inventorysample.mapper.ProductEntityToProductDtoConverter;
 import com.globant.training.inventorysample.repository.ProductRepository;
 import com.globant.training.inventorysample.service.IProductService;
@@ -22,6 +23,7 @@ public class ProductServiceImpl implements IProductService {
 
   private final ProductRepository productRepository;
   private final ProductEntityToProductDtoConverter productEntityToProductDtoConverter;
+  private final ProductDtoToProductEntityConverter productDtoToProductEntityConverter;
 
   @Override
   public List<ProductDto> findAllProducts() {
@@ -45,5 +47,23 @@ public class ProductServiceImpl implements IProductService {
         // in a future iteration we will handle exceptions properly
         .findFirst()
         .orElseThrow(() -> new RuntimeException(String.format("Product with SKU=%s not found", sku)));
+  }
+
+  @Override
+  public ProductDto createProduct(ProductDto product) {
+    LOGGER.info("Begin method createProduct dto={}", product);
+    final String sku = product.getSku().trim();
+    // verify if SKU is already registered in Database
+    // then throws exception
+    // in this iteration a RuntimeException is thrown
+    // in a next iteration a proper exception handler will be implemented
+    if (productRepository.existsBySku(sku)) {
+      LOGGER.info(
+          "method findProductBySku with SKU={} throws ProductSkuAlreadyExistException");
+      throw new RuntimeException(
+          String.format("SKU=%s already exists in DB", sku));
+    }
+    productRepository.save(productDtoToProductEntityConverter.convert(product));
+    return product;
   }
 }

@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -28,4 +30,16 @@ public interface IProductController {
    */
   @GetMapping(value = "/products/{sku}", produces = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<ProductDto> findProductBySku(@PathVariable("sku") String sku);
+
+  /**
+   * Creates a new product in DB and return the DTO that represents that object
+   *
+   * @param product The product to be created
+   * @return The product DTO with all fields saved in DB. If there are some validation
+   * error, an error 400 will be thrown. If already exists a product with the SKU
+   * an error 409 will be thrown
+   */
+  @PostMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE, consumes =
+      MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto product);
 }

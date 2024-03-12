@@ -6,6 +6,7 @@ import com.globant.training.inventorysample.service.IProductService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +33,13 @@ public class ProductControllerImpl implements IProductController {
   public ResponseEntity<ProductDto> findProductBySku(String sku) {
     LOGGER.info("Begin method findProductBySku");
     return ResponseEntity.ok(productService.findProductBySku(sku));
+  }
+
+  @Override
+  public ResponseEntity<ProductDto> createProduct(ProductDto product) {
+    LOGGER.info("Begin method createProduct");
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body(productService.createProduct(product));
   }
 }

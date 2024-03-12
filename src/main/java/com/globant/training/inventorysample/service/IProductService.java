@@ -24,4 +24,12 @@ public interface IProductService {
    */
   ProductDto findProductBySku(String sku);
 
+  /**
+   * Insert a new Product record in DB.
+   *
+   * @param productWriteDto DTO with the product data to be inserted
+   * @return DTO with data or the product inserted or throw  exception
+   * if product with SKU already exists
+   */
+  ProductDto createProduct(ProductDto productWriteDto);
 }
