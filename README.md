@@ -65,6 +65,22 @@ Return a list of all products.
 
 Return the product with SKU in parameters. Returns `404` if product does not exist in catalog.
 
+## POST /products
+
+Creates product with information in request body. Example of body:
+
+````
+{
+  "sku": "P-18888",
+  "name": "Pink short sleeve T-Shirt",
+  "category": "SHIRTS_AND_T_SHIRTS",
+  "description": "Female T-Shirt Pink short sleeve Size M,
+  "unitPrice": 28.99,
+  "color": "PINK",
+  "available": true
+}
+````
+
 # Example classes
 
 ## Package Scan configuration
