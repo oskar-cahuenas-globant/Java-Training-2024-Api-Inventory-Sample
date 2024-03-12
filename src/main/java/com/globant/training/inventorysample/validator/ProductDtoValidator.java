@@ -15,6 +15,11 @@ import java.util.List;
  */
 @Component
 public class ProductDtoValidator {
+  /**
+   * Verify product with validation rules. An exception is thrown with some field is invalid.
+   *
+   * @param product ProductDto to be validated.
+   */
   public void validateProductCreateDto(ProductDto product) {
     // list with error messages
     final List<String> errorList = new ArrayList<>();
@@ -31,6 +36,13 @@ public class ProductDtoValidator {
     if (!StringUtils.hasLength(StringUtils.trimAllWhitespace(product.getSku()))) {
       errorList.add("Sku code can't be empty");
     }
+
+    // Validate SKU is of the form P-00000 (P - any digits)
+    if (!StringUtils.trimAllWhitespace(product.getSku()).matches("P-\\d+")) {
+      throw new ValidationExceptionBase(
+          "Validation exception: Sku must be of the form P-0000 with one or more digits. Example P-0001");
+    }
+
     // validate name
     if (!StringUtils.hasLength(StringUtils.trimAllWhitespace(product.getName()))) {
       errorList.add("Name code can't be empty");
@@ -60,6 +72,15 @@ public class ProductDtoValidator {
     if (!errorList.isEmpty()) {
       throw new ValidationExceptionBase(
           String.format("Validation exception: %s", String.join(", ", errorList)));
+    }
+  }
+
+  public void validateSku(String sku) {
+    // TODO: Add more validations
+    // validates SKU is not null and fills regex
+    if (sku == null || !sku.matches("P-\\d+")) {
+      throw new ValidationExceptionBase(
+          "Validation exception: Sku must be of the form P-0000 with one or more digits. Example P-0001");
     }
   }
 }

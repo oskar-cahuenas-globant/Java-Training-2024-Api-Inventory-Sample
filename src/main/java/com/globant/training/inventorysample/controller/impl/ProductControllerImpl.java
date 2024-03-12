@@ -3,6 +3,7 @@ package com.globant.training.inventorysample.controller.impl;
 import com.globant.training.inventorysample.controller.IProductController;
 import com.globant.training.inventorysample.domain.dto.ProductDto;
 import com.globant.training.inventorysample.service.IProductService;
+import com.globant.training.inventorysample.validator.ProductDtoValidator;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class ProductControllerImpl implements IProductController {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProductControllerImpl.class);
 
   IProductService productService;
+  ProductDtoValidator validator;
 
   @Override
   public ResponseEntity<List<ProductDto>> findAllProducts() {
@@ -32,12 +34,18 @@ public class ProductControllerImpl implements IProductController {
   @Override
   public ResponseEntity<ProductDto> findProductBySku(String sku) {
     LOGGER.info("Begin method findProductBySku");
+    // validate product SKU
+    // if SKU is not valid an exception is thrown
+    validator.validateSku(sku);
     return ResponseEntity.ok(productService.findProductBySku(sku));
   }
 
   @Override
   public ResponseEntity<ProductDto> createProduct(ProductDto product) {
     LOGGER.info("Begin method createProduct");
+    // perform dto validation with manual validator
+    // if it is not valid an exception is thrown
+    validator.validateProductCreateDto(product);
     return ResponseEntity
         .status(HttpStatus.CREATED)
         .body(productService.createProduct(product));

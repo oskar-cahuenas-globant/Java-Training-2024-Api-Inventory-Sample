@@ -174,3 +174,13 @@ The hierarchy is as follows
 
 In package `com.globant.training.inventorysample.validator` you will find an example of an "ad-hoc" validator
 for `ProductDto` class with a single validation for testing that all attributes are not-empty.
+There are a validation for SKU parameter of endpoint `/products/sku` as well.
+
+In ProductController there are examples of Manual Validator use.
+
+# Exception handler
+
+Examples of exception handlers for manual validator using `@ControllerAdvice` and `@ExceptionHandler` annotations are in
+class `com.globant.training.inventorysample.controller.ExceptionHandlerAdvicer` 
+
+
