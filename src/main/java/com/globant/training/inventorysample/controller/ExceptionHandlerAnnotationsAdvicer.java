@@ -35,12 +35,7 @@ public class ExceptionHandlerAnnotationsAdvicer {
   public ResponseEntity<ErrorDto> handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
     return ResponseEntity
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(ErrorDto
-            .builder()
-            .uuid(UUID.randomUUID().toString())
-            .timeStamp(LocalDateTime.now().toString())
-            .message("validation error: " + e.getMessage())
-            .build());
+        .body(createErrorDto("JSR validation error", e));
   }
 
 
@@ -50,12 +45,7 @@ public class ExceptionHandlerAnnotationsAdvicer {
 
     return ResponseEntity
         .status(HttpStatus.INTERNAL_SERVER_ERROR)
-        .body(ErrorDto
-            .builder()
-            .uuid(UUID.randomUUID().toString())
-            .timeStamp(LocalDateTime.now().toString())
-            .message("generic error: " + e.getMessage())
-            .build());
+        .body(createErrorDto("JSR validation error", e));
   }
 
   /**
