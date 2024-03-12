@@ -129,14 +129,19 @@ Example of initial seeding with a CommandLineRunner for populating tables
 # Exception handling
 
 ## Exception with `@ResponseStatus` and standard response object
+
 For the case of method `findProductBySku`  in class `com.globant.training.inventorysample.service.ProductServiceImpl`
 not found error is handled with an exception annotated with @NOT_FOUND that causes controller respond with standard
 error object and code 404.
 
 ## Error hierarchy
-For implement ExceptionHandler is recommended to define an exception hierarchy for all posible exceptional conditions in API Code. In example the package `com.globant.training.inventorysample.exceptions.withexceptionhandler` will define a hierarchy of exceptions for the rest of the validation exercises.
+
+For implement ExceptionHandler is recommended to define an exception hierarchy for all posible exceptional conditions in
+API Code. In example the package `com.globant.training.inventorysample.exceptions.withexceptionhandler` will define a
+hierarchy of exceptions for the rest of the validation exercises.
 
 The hierarchy is as follows
+
 ```
  + BaseInventoryApiException (Base exception of herarchy)
  |
@@ -164,3 +169,8 @@ The hierarchy is as follows
  |    + -- CustomerDocumentAlreadyExistException (Exception existing for Customer entity by Document)
  
 ```
+
+# Manual validator
+
+In package `com.globant.training.inventorysample.validator` you will find an example of an "ad-hoc" validator
+for `ProductDto` class with a single validation for testing that all attributes are not-empty.
