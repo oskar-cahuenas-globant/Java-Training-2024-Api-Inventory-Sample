@@ -80,6 +80,54 @@ Creates product with information in request body. Example of body:
 }
 ````
 
+## Customer  DTO
+
+Attributes:
+
+- `documentType`: `String` CC or CE.
+- `documentType`: `String` with digits. Combination of type and number must be unique
+- `name`: `String` Customer name and surname
+- `address`: `String` Customer delivery address.
+- `phone`: Phone number 10 digits.
+- `birthday`: Birthday of Customer with format 'YYYY-MM-DD'
+
+````
+{
+	"documentType": "CC",
+	"documentNumber":"123456",
+	"name": "pedro perez",
+	"address": "Cra. 99 #20-33",
+	"phone": "3211234567",
+	"email": "pedro.perez@gmail.com",
+	"birthday": "1980-02-20"
+}	
+````
+
+## GET /customers
+
+Return a list of all customer.
+
+## GET /customers/{documentType}/{documentNumber}
+
+Return the user with Document in parameters in the form {documentType}-{DocumentNumber}. Returns `404` if product does
+not exist in catalog.
+
+## POST /customers
+
+Creates customer with information in request body. Example of body:
+
+````
+{
+	"documentType": "CC",
+	"documentNumber":"123456",
+	"name": "pedro perez",
+	"address": "Cra. 99 #20-33",
+	"phone": "3211234567",
+	"email": "pedro.perez@gmail.com",
+	"birthday": "1980-02-20"
+}	
+````
+
 # Example classes
 
 ## Package Scan configuration
@@ -95,11 +143,15 @@ Spring's `Converter<S, T>`interface.
 
 - Class `com.globant.training.inventorysample.controller.IProductController` defines controller contract.
 - Class `com.globant.training.inventorysample.controller.impl.ProductControllerImpl` defines controller implementation.
+- Class `com.globant.training.inventorysample.controller.ICustomerController` defines controller contract.
+- Class `com.globant.training.inventorysample.controller.impl.CustomerControllerImpl` defines controller implementation.
 
 ## Service Interface and definition
 
 - Class `com.globant.training.inventorysample.service.IProductService` defines service contract.
 - Class `com.globant.training.inventorysample.service.impl.ProductServiceImpl` defines service implementation.
+- Class `com.globant.training.inventorysample.service.ICustomerService` defines service contract.
+- Class `com.globant.training.inventorysample.service.impl.CustomerServiceImpl` defines service implementation.
 
 ## JPA Entities
 
@@ -125,6 +177,7 @@ Classes in package `com.globant.training.inventorysample.domain.dto` are example
 Example of initial seeding with a CommandLineRunner for populating tables
 
 - Class `com.globant.training.inventorysample.runner.ProductSeeder` for populating `Products` table.
+- Class `com.globant.training.inventorysample.runner.CustomerSeeder` for populating `Customer` table.
 
 # Exception handling
 

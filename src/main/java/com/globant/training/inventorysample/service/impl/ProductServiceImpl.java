@@ -48,6 +48,8 @@ public class ProductServiceImpl implements IProductService {
     // and then an error with standard Spring boot error object will be thrown
     if (product.isEmpty()) {
       // exception anotated with NOT_FOUND response code
+      LOGGER.error(
+          "method findProductBySku product with sku={} throws ProductNotExistException", sku);
       throw new ProductNotExistException(String.format("Product with SKU=%s not found", sku));
     }
     return productEntityToProductDtoConverter.convert(product.get());
@@ -62,8 +64,8 @@ public class ProductServiceImpl implements IProductService {
     // in this iteration a RuntimeException is thrown
     // in a next iteration a proper exception handler will be implemented
     if (productRepository.existsBySku(sku)) {
-      LOGGER.info(
-          "method findProductBySku with SKU={} throws ProductSkuAlreadyExistException");
+      LOGGER.error(
+          "method findProductBySku with SKU={} throws ProductSkuAlreadyExistException", sku);
       throw new RuntimeException(
           String.format("SKU=%s already exists in DB", sku));
     }
