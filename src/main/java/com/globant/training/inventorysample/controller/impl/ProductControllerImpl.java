@@ -25,7 +25,7 @@ public class ProductControllerImpl implements IProductController {
   @Override
   public ResponseEntity<List<ProductDto>> findAllProducts() {
     LOGGER.info("Begin method findAllProducts");
-      return ResponseEntity.ok(productService.findAllProducts());
+    return ResponseEntity.ok(productService.findAllProducts());
   }
 
   @Override

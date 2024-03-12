@@ -1,4 +1,5 @@
 package com.globant.training.inventorysample.mapper;
+
 import com.globant.training.inventorysample.domain.dto.ProductDto;
 import com.globant.training.inventorysample.domain.entity.Product;
 import org.springframework.core.convert.converter.Converter;

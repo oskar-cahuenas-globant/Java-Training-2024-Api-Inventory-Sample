@@ -7,7 +7,7 @@ import java.util.Optional;
 
 /**
  * Spring JPA repository for Product witn primary key long
- *
+ * <p>
  * The idea is to not implement methods. Frameworks implements automatically all the logic
  * for generating SQL queries and execute them at server.
  */

@@ -1,8 +1,8 @@
 package com.globant.training.inventorysample.domain.enumerations;
 
 /**
- *  Enumeration for Products' category
- *  with an aditional information property.
+ * Enumeration for Products' category
+ * with an aditional information property.
  */
 
 import lombok.AllArgsConstructor;

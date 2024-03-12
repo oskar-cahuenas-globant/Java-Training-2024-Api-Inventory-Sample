@@ -14,6 +14,7 @@ import java.util.List;
 public interface IProductController {
   /**
    * Returns all products from DB with no specific order
+   *
    * @return List of all products in DB
    */
   @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,6 +22,7 @@ public interface IProductController {
 
   /**
    * Returns a product by sku code
+   *
    * @param sku SKU to be searched
    * @return The product instance or error 404 if SKU is not found
    */

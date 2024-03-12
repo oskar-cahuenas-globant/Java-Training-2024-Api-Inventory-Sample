@@ -44,6 +44,6 @@ public class ProductServiceImpl implements IProductService {
         // it will throw a 500 error
         // in a future iteration we will handle exceptions properly
         .findFirst()
-        .orElseThrow(() ->  new RuntimeException(String.format("Product with SKU=%s not found", sku)));
+        .orElseThrow(() -> new RuntimeException(String.format("Product with SKU=%s not found", sku)));
   }
 }

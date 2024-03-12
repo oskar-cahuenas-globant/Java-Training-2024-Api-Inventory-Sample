@@ -10,6 +10,7 @@ import java.util.List;
 public interface IProductService {
   /**
    * Finds all products in DB
+   *
    * @return a List of all products in DB
    */
   List<ProductDto> findAllProducts();
