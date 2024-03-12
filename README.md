@@ -22,7 +22,6 @@ To stop the application, the following command should be issued in your shell:
 mvn spring-boot:stop
 ```
 
-
 File `insomnia_project/Insomnia_api_sample.json` contains an Insomnia project with exaple endpoints.
 
 # API Contract
@@ -122,7 +121,46 @@ Classes in package `com.globant.training.inventorysample.domain.dto` are example
   Entity with query or "magic methods" for lookup by entity field name.
 
 # Database initial Seeding
+
 Example of initial seeding with a CommandLineRunner for populating tables
+
 - Class `com.globant.training.inventorysample.runner.ProductSeeder` for populating `Products` table.
 
+# Exception handling
 
+## Exception with `@ResponseStatus` and standard response object
+For the case of method `findProductBySku`  in class `com.globant.training.inventorysample.service.ProductServiceImpl`
+not found error is handled with an exception annotated with @NOT_FOUND that causes controller respond with standard
+error object and code 404.
+
+## Error hierarchy
+For implement ExceptionHandler is recommended to define an exception hierarchy for all posible exceptional conditions in API Code. In example the package `com.globant.training.inventorysample.exceptions.withexceptionhandler` will define a hierarchy of exceptions for the rest of the validation exercises.
+
+The hierarchy is as follows
+```
+ + BaseInventoryApiException (Base exception of herarchy)
+ |
+ |
+ +--- GenericServerError (Exception for a generic or unclasified error)
+ |
+ |
+ +--- ValidationExceptionBase (Base of all input validation errors)
+ |
+ |
+ +--- EntityNotFoundException (Base of all Not found exception for each entity)
+ |    |
+ |    |
+ |    + -- ProductNotFoundException (Exception not found for Product entity)
+ |    |
+ |    |
+ |    + -- CustomerNotFoundException (Exception not found for Customer entity)
+ |
+ +--- EntityAlreadyExistException (Base of all exception of existing entity while trying to insert)          
+ |    |
+ |    |
+ |    + -- ProductSkuAlreadyExistException (Exception existing for Product entity by SKU)
+ |    |
+ |    |
+ |    + -- CustomerDocumentAlreadyExistException (Exception existing for Customer entity by Document)
+ 
+```
