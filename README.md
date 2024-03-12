@@ -16,6 +16,13 @@ mvn clean package
 mvn spring-boot:run
 ```
 
+To stop the application, the following command should be issued in your shell:
+
+```
+mvn spring-boot:stop
+```
+
+
 File `insomnia_project/Insomnia_api_sample.json` contains an Insomnia project with exaple endpoints.
 
 # API Contract
