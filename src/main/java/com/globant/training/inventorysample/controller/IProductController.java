@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Product controller contract
  */
+
 public interface IProductController {
   /**
    * Returns all products from DB with no specific order

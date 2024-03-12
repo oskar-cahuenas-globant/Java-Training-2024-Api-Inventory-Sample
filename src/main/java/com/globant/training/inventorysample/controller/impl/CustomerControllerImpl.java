@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@Validated
 @AllArgsConstructor
+// annotation for activating JSR annotation validators
+// must be set in implementation class
+@Validated
 public class CustomerControllerImpl implements ICustomerController {
   private final ICustomerService customerService;
 

@@ -141,16 +141,16 @@ Spring's `Converter<S, T>`interface.
 
 ## Controler Interface and definition
 
-- Class `com.globant.training.inventorysample.controller.IProductController` defines controller contract.
+- Interface `com.globant.training.inventorysample.controller.IProductController` defines controller contract.
 - Class `com.globant.training.inventorysample.controller.impl.ProductControllerImpl` defines controller implementation.
-- Class `com.globant.training.inventorysample.controller.ICustomerController` defines controller contract.
+- Interface `com.globant.training.inventorysample.controller.ICustomerController` defines controller contract.
 - Class `com.globant.training.inventorysample.controller.impl.CustomerControllerImpl` defines controller implementation.
 
 ## Service Interface and definition
 
-- Class `com.globant.training.inventorysample.service.IProductService` defines service contract.
+- Interface `com.globant.training.inventorysample.service.IProductService` defines service contract.
 - Class `com.globant.training.inventorysample.service.impl.ProductServiceImpl` defines service implementation.
-- Class `com.globant.training.inventorysample.service.ICustomerService` defines service contract.
+- Interface `com.globant.training.inventorysample.service.ICustomerService` defines service contract.
 - Class `com.globant.training.inventorysample.service.impl.CustomerServiceImpl` defines service implementation.
 
 ## JPA Entities
@@ -223,7 +223,9 @@ The hierarchy is as follows
  
 ```
 
-# Manual validator
+# Data validation
+
+## Manual validator
 
 In package `com.globant.training.inventorysample.validator` you will find an example of an "ad-hoc" validator
 for `ProductDto` class with a single validation for testing that all attributes are not-empty.
@@ -231,9 +233,36 @@ There are a validation for SKU parameter of endpoint `/products/sku` as well.
 
 In ProductController there are examples of Manual Validator use.
 
-# Exception handler
+## Exception handler for exception hierarchy of  manual validators
 
 Examples of exception handlers for manual validator using `@ControllerAdvice` and `@ExceptionHandler` annotations are in
-class `com.globant.training.inventorysample.controller.ExceptionHandlerAdvicer` 
+class `com.globant.training.inventorysample.controller.ExceptionHandlerAdvicer`
 
+## Validation with JSR 380 annotations
+
+JSR 380 defines annotations with several built-in validation rules, and allows to create custom validaiton annotation as
+well. You have to annotate every field of DTO or entity in order to use this validator.
+
+In class `com.globant.training.inventorysample.domain.dto.CustomerDto` exists an example of how to annotate class
+attribute with validation rules.
+
+For activating validators with JSR in controller for Spring Boot, you should annotate:
+
+- `@Validate` annotation for controller class implementation (`CustomerControllerImpl`)
+- `@Valid` annotation for any method parameter in controller for `@RequestBody`
+- Parameters for `@PathVariables` and `@RequestParam` could ve validated by adding either `@Valid` annotation and
+  validations rules annotations as well.
+
+Examples could be find in Interface `com.globant.training.inventorysample.controller.ICustomerController` Interface.
+
+## Exception handler for JSR 380 annotations
+
+JSR 380 validator could throw two exceptions:
+
+- MethodArgumentNotValidException
+- ConstraintViolationException
+
+You must implement an exception handler to manage these exceptions when you are validating with JSR annotations.
+
+class `com.globant.training.inventorysample.controller.ExceptionHandlerAnnotationsAdvicer` has an example.
 
